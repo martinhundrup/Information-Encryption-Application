@@ -6,9 +6,9 @@ Console.WriteLine(test);
 
 //Emailer.Email("hundrupm@gmail.com");
 
-var encyption = Encryption.Encrypt(test, Hashing.Hash("hello"), Hashing.Hash("world"));
+var encyption = Encryption.Encrypt(test, Hashing.Hash("hello"));
 Console.WriteLine(Hashing.HashToString(encyption));
-var decryption = Encryption.Decrypt(encyption, Hashing.Hash("hello"), Hashing.Hash("world"));
+var decryption = Encryption.Decrypt(encyption, Hashing.Hash("hello"));
 Console.WriteLine(decryption);
 
 // they are equal!!
