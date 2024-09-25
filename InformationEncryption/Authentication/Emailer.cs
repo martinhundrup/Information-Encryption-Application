@@ -22,28 +22,13 @@ namespace Authentication
             // for the code, hash the email, hash the UTC, bitwise & them, then convert to string
             // use the last 6 chars of this string for verification
 
-            var hash1 = Hash(email);
-            var hash2 = Hash(DateTime.Now.ToString());
+            var hash1 = Hashing.Hash(email);
+            var hash2 = Hashing.Hash(DateTime.Now.ToString());
 
-            // Create a result array to store the result of the AND operation
-            byte[] result = new byte[hash1.Length];
+            var result = Hashing.Combine(hash1, hash2);
 
-            // Perform the bitwise AND operation on each byte
-            for (int i = 0; i < hash1.Length; i++)
-            {
-                result[i] = (byte)(hash1[i] & hash2[i]);
-            }
-
-            // convert to a hex string
-            StringBuilder sb = new StringBuilder();
-            foreach (byte b in result)
-            {
-                sb.Append(b.ToString("x2")); // Convert each byte to a hexadecimal string
-            }
-
-            Console.WriteLine($"generated hash: {sb}");
-
-
+            string hash = Hashing.HashToString(result);
+            Console.WriteLine($"generated hash: {hash}");
 
             try
             {
@@ -51,7 +36,7 @@ namespace Authentication
                 string fromEmail = "EncryptionDoNotReply@gmail.com"; // Sender email address
                 string toEmail = email; // Recipient email address
                 string subject = "Test Email";
-                string body = $"Hello, your code is {sb.ToString().Substring(sb.Length - 7, 6)}";
+                string body = $"Hello, your code is {hash.Substring(hash.Length - 7, 6)}";
                 string smtpServer = "smtp.gmail.com"; // Gmail SMTP server
                 int smtpPort = 587; // Gmail uses port 587 for TLS
                 string? emailPassword = Environment.GetEnvironmentVariable("ENCRYPTION_APP_PASSWORD");
@@ -81,12 +66,6 @@ namespace Authentication
 
         }
 
-        public static byte[] Hash(string s)
-        {
-            using (HashAlgorithm sha = SHA256.Create())
-            {
-                return sha.ComputeHash(Encoding.ASCII.GetBytes(s));
-            }
-        }
+        
     }
 }
