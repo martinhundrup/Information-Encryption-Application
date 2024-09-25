@@ -1,6 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Authentication;
 
-Console.WriteLine("Hello, World!");
+string test = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in massa purus. Proin venenatis nisi at augue fringilla pretium. Vivamus commodo, tortor at cursus facilisis, eros risus venenatis odio, et varius elit ipsum et ex. Donec tincidunt nibh ut libero fringilla elementum. Vestibulum enim nibh, iaculis eget semper egestas, ullamcorper dictum tortor. Phasellus vel volutpat turpis. Sed finibus nibh nunc, non convallis tellus aliquam non. Aenean in risus eu ligula convallis efficitur. Donec ac diam at diam aliquam dictum nec et lectus. Suspendisse lobortis tincidunt ex sed pulvinar. Phasellus convallis metus vel lorem varius, at posuere ante dapibus. Phasellus finibus faucibus nunc at facilisis. In dignissim accumsan congue. Nulla posuere dapibus massa.\r\n\r\nAenean congue est odio, sed hendrerit risus porta sit amet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent felis nisl, mattis vitae tincidunt ac, mattis in nulla. Donec quis lacus euismod, ullamcorper dolor interdum, sollicitudin diam. Donec pretium sem vitae justo accumsan, id commodo risus fringilla. Etiam dictum dignissim congue. Aliquam pellentesque, erat eu ultrices varius, dolor arcu mollis tortor, ut lobortis libero purus non ex. Morbi mollis, turpis sit amet luctus mollis, lectus lorem lobortis felis, ac laoreet ante tellus ac erat. Pellentesque vitae auctor ligula, eu pulvinar nisi. Donec varius lectus ut nulla tincidunt, a iaculis nulla commodo. Phasellus et nisl neque.\r\n\r\nVivamus a velit lacus. Sed ac cursus lacus. Aliquam dui tellus, blandit sit amet augue vestibulum, sodales pulvinar urna. Nam at mi posuere, iaculis tortor non, aliquam mauris. In in accumsan leo. Vivamus eu mi in tortor iaculis viverra eu a arcu. Pellentesque auctor nisi nisl, a feugiat sapien volutpat vitae. Sed id leo augue. Nam pulvinar sem id metus bibendum eleifend. Mauris ullamcorper sapien sed quam tristique, eget placerat mauris tristique. Sed tincidunt porta auctor.\r\n\r\nQuisque tincidunt augue nec odio pharetra egestas. Nullam tincidunt consectetur euismod. Maecenas id pellentesque sapien. Quisque condimentum quam at egestas dignissim. Suspendisse eu quam a nisl pulvinar efficitur. Donec vitae dapibus mi. Quisque pretium tincidunt semper. Sed eget purus sit amet urna gravida vehicula eget id orci. Nulla dui justo, rhoncus id sem at, pulvinar volutpat velit.\r\n\r\nQuisque sit amet ornare risus, quis tristique metus. Sed ante quam, mattis sed congue posuere, egestas quis eros. Nam vitae ornare arcu. Aliquam erat volutpat. Integer molestie vel felis vel placerat. Cras gravida ipsum vel lacus dapibus, vel luctus nisi euismod. Morbi fringilla erat dictum nulla condimentum feugiat ut eu magna. Vestibulum suscipit faucibus mauris, quis sodales ligula luctus eget. Fusce neque lectus, fringilla vitae volutpat et, rhoncus non ipsum. Nulla nec ornare dui, et mattis ex.";
+Console.WriteLine(test);
 
-Emailer.Email("hundrupm@gmail.com");
+//Emailer.Email("hundrupm@gmail.com");
+
+var encyption = Encryption.Encrypt(test, Hashing.Hash("hello"), Hashing.Hash("world"));
+Console.WriteLine(Hashing.HashToString(encyption));
+var decryption = Encryption.Decrypt(encyption, Hashing.Hash("hello"), Hashing.Hash("world"));
+Console.WriteLine(decryption);
+
+// they are equal!!
+Console.WriteLine(Hashing.Hash(test).SequenceEqual(Hashing.Hash(decryption)));
+Console.WriteLine(test == decryption);
