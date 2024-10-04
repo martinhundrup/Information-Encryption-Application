@@ -13,14 +13,15 @@ namespace Authentication
         // the randomness [IV] will be the username hash
 
         // uses AES encryption. encrypts string to bytes
-        public static byte[] Encrypt(string plainText, byte[] Key)
+        public static byte[] Encrypt(string plainText, byte[] IV)
         {
-            // get the IV
-            var IV = Hashing.Hash(Environment.GetEnvironmentVariable("ENCRYPTION_APP_IV")).Take(16).ToArray();
+            // get the key
+            var key = Hashing.Hash(Environment.GetEnvironmentVariable("ENCRYPTION_APP_IV")).Take(16).ToArray();
+            IV = IV.Take(16).ToArray();
 
             using (Aes aesAlg = Aes.Create())
             {
-                aesAlg.Key = Key;
+                aesAlg.Key = key;
                 aesAlg.IV = IV;
 
                 ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
@@ -40,14 +41,15 @@ namespace Authentication
         }
 
         // assumes AES descryption. decryptes bytes into string
-        public static string Decrypt(byte[] cipherText, byte[] Key)
+        public static string Decrypt(byte[] cipherText, byte[] IV)
         {
-            // get the IV
-            var IV = Hashing.Hash(Environment.GetEnvironmentVariable("ENCRYPTION_APP_IV")).Take(16).ToArray();
+            // get the key
+            var key = Hashing.Hash(Environment.GetEnvironmentVariable("ENCRYPTION_APP_IV")).Take(16).ToArray();
+            IV = IV.Take(16).ToArray();
 
             using (Aes aesAlg = Aes.Create())
             {
-                aesAlg.Key = Key;
+                aesAlg.Key = key;
                 aesAlg.IV = IV;
 
                 ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
