@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security.Authentication;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Authentication;
+﻿using Authentication;
 
 namespace GUI
 {
@@ -38,12 +28,19 @@ namespace GUI
         {
             // add fields to the credentials file
             // TODO: add try/catch
-            DataManager.CreateUser(email, pass);
 
-            this.Hide();
-            TextEditor editor = new TextEditor();
-            editor.ShowDialog();
-            this.Close();
+            if (string.Compare(DataManager.pin, Pin_textbox.Text) == 0)
+            {
+                // verified
+                this.Hide();
+                TextEditor editor = new TextEditor(email);
+                editor.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                throw new Exception("Invalid pin");
+            }            
         }
     }
 }

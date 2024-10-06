@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Authentication
 {
-    internal static class Hashing
+    public static class Hashing
     {
 
         public static byte[] Hash(string s)

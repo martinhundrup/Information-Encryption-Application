@@ -40,7 +40,7 @@
             // 
             Username_textbox.Anchor = AnchorStyles.None;
             Username_textbox.Location = new Point(157, 41);
-            Username_textbox.Margin = new Padding(2, 2, 2, 2);
+            Username_textbox.Margin = new Padding(2);
             Username_textbox.MaxLength = 30;
             Username_textbox.Name = "Username_textbox";
             Username_textbox.Size = new Size(243, 23);
@@ -50,7 +50,7 @@
             // 
             Password_textbox.Anchor = AnchorStyles.None;
             Password_textbox.Location = new Point(157, 97);
-            Password_textbox.Margin = new Padding(2, 2, 2, 2);
+            Password_textbox.Margin = new Padding(2);
             Password_textbox.MaxLength = 30;
             Password_textbox.Name = "Password_textbox";
             Password_textbox.Size = new Size(243, 23);
@@ -61,7 +61,7 @@
             Login_button.Anchor = AnchorStyles.None;
             Login_button.ForeColor = SystemColors.ActiveCaptionText;
             Login_button.Location = new Point(175, 137);
-            Login_button.Margin = new Padding(2, 2, 2, 2);
+            Login_button.Margin = new Padding(2);
             Login_button.Name = "Login_button";
             Login_button.Size = new Size(78, 25);
             Login_button.TabIndex = 2;
@@ -74,7 +74,7 @@
             Clear.Anchor = AnchorStyles.None;
             Clear.ForeColor = SystemColors.ActiveCaptionText;
             Clear.Location = new Point(304, 137);
-            Clear.Margin = new Padding(2, 2, 2, 2);
+            Clear.Margin = new Padding(2);
             Clear.Name = "Clear";
             Clear.Size = new Size(78, 25);
             Clear.TabIndex = 3;
@@ -117,7 +117,7 @@
             Controls.Add(Password_textbox);
             Controls.Add(Username_textbox);
             ForeColor = SystemColors.ControlText;
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             MinimumSize = new Size(565, 256);
             Name = "Login";
             Text = "Information Encyptor - Login";

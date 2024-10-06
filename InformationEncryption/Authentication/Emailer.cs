@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
-
-using System.Security.Cryptography;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Authentication
 {
     // responsible for sending emails to the user's email
-    internal static class Emailer
+    public static class Emailer
     {
 
-        public static void Email(string email)
+        public static string? Email(string email)
         {
 
             // for the code, hash the email, hash the UTC, bitwise & them, then convert to string
@@ -30,13 +21,16 @@ namespace Authentication
             string hash = Hashing.HashToString(result);
             Console.WriteLine($"generated hash: {hash}");
 
+            string pin = hash.Substring(hash.Length - 7, 6);
+            DataManager.pin = pin;
+
             try
             {
                 // Set up the email details
                 string fromEmail = "EncryptionDoNotReply@gmail.com"; // Sender email address
                 string toEmail = email; // Recipient email address
                 string subject = "Test Email";
-                string body = $"Hello, your code is {hash.Substring(hash.Length - 7, 6)}";
+                string body = $"Hello, your code is {pin}";
                 string smtpServer = "smtp.gmail.com"; // Gmail SMTP server
                 int smtpPort = 587; // Gmail uses port 587 for TLS
                 string? emailPassword = Environment.GetEnvironmentVariable("ENCRYPTION_APP_PASSWORD");
@@ -57,13 +51,13 @@ namespace Authentication
 
                 // Send the email
                 smtpClient.Send(mail);
-                Console.WriteLine("Email sent successfully.");
+                return pin;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error sending email: " + ex.Message);
+                return null;
             }
-
         }
         
     }

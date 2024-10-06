@@ -28,31 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
-            richTextBox1 = new RichTextBox();
+            textBox = new RichTextBox();
+            menuToolStrip = new MenuStrip();
+            File_ToolStripItem = new ToolStripMenuItem();
+            Save_ToolStripItem = new ToolStripMenuItem();
+            menuToolStrip.SuspendLayout();
             SuspendLayout();
             // 
-            // richTextBox1
+            // textBox
             // 
-            richTextBox1.Dock = DockStyle.Fill;
-            richTextBox1.Location = new Point(0, 0);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(800, 450);
-            richTextBox1.TabIndex = 0;
-            richTextBox1.Text = "";
+            textBox.Dock = DockStyle.Fill;
+            textBox.Location = new Point(0, 24);
+            textBox.Name = "textBox";
+            textBox.Size = new Size(800, 426);
+            textBox.TabIndex = 0;
+            textBox.Text = "";
+            // 
+            // menuToolStrip
+            // 
+            menuToolStrip.Items.AddRange(new ToolStripItem[] { File_ToolStripItem });
+            menuToolStrip.Location = new Point(0, 0);
+            menuToolStrip.Name = "menuToolStrip";
+            menuToolStrip.Size = new Size(800, 24);
+            menuToolStrip.TabIndex = 1;
+            menuToolStrip.Text = "menuStrip1";
+            // 
+            // File_ToolStripItem
+            // 
+            File_ToolStripItem.DropDownItems.AddRange(new ToolStripItem[] { Save_ToolStripItem });
+            File_ToolStripItem.Name = "File_ToolStripItem";
+            File_ToolStripItem.Size = new Size(37, 20);
+            File_ToolStripItem.Text = "File";
+            // 
+            // Save_ToolStripItem
+            // 
+            Save_ToolStripItem.Name = "Save_ToolStripItem";
+            Save_ToolStripItem.Size = new Size(180, 22);
+            Save_ToolStripItem.Text = "Save";
+            Save_ToolStripItem.Click += Save_ToolStripItem_Click;
             // 
             // TextEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(richTextBox1);
+            Controls.Add(textBox);
+            Controls.Add(menuToolStrip);
+            MainMenuStrip = menuToolStrip;
             Name = "TextEditor";
             Text = "TextEditor";
+            menuToolStrip.ResumeLayout(false);
+            menuToolStrip.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private RichTextBox richTextBox1;
+        private RichTextBox textBox;
+        private MenuStrip menuToolStrip;
+        private ToolStripMenuItem File_ToolStripItem;
+        private ToolStripMenuItem Save_ToolStripItem;
     }
 }
