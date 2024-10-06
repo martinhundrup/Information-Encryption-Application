@@ -36,7 +36,7 @@ namespace GUI
             //      if the emails succeeds, move onto authorization page
 
             this.Hide();
-            _2FA _2FA = new _2FA(this.Username_textbox.Text);
+            _2FA _2FA = new _2FA(this.Username_textbox.Text, this.Password_textbox.Text);
             _2FA.ShowDialog();
             this.Close();
         }
