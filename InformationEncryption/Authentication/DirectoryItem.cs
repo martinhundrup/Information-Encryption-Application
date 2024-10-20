@@ -17,7 +17,7 @@ namespace Authentication
 
         #region Properties
 
-        private List<FileItem> Files
+        public List<FileItem> Files
         {
             get { return _files; }
         }
@@ -59,18 +59,19 @@ namespace Authentication
             }
             catch // directory doesn't exist
             {
-                // just move on
+                // create the directory
+                Directory.CreateDirectory(_directoryPath);
             }
 
-            if (filePaths == null)
+            if (filePaths == null || filePaths.Length == 0)
             {
                 // no files, create one
 
                 // internal name of file will be hashed DateTime.Now to avoid duplicate files
                 string hashedName = Hashing.HashToString(Hashing.Hash(DateTime.Now.ToString()));
-                string filePath = $"{_directoryPath}\\{hashedName}.txt";
+                string filePath = $"{_directoryPath}{hashedName}.txt";
 
-                _files.Add(new FileItem(hashedName));
+                _files.Add(new FileItem(filePath));
             }
             else // load each file
             {
@@ -79,6 +80,31 @@ namespace Authentication
                     _files.Add(new FileItem(file));
                 }
             }
+        }
+
+        // searches for a file based on name
+        public FileItem GetFile(string name)
+        {
+
+            foreach (var file in _files)
+            {
+                if (string.Compare(file.Name, name) == 0) // found
+                {
+                    return file;
+                }
+            }
+
+            return null;
+        }
+
+        public FileItem CreateFile()
+        {
+            string hashedName = Hashing.HashToString(Hashing.Hash(DateTime.Now.ToString()));
+            string newFileName = $"{_directoryPath}{hashedName}";
+
+            var file = new FileItem(newFileName);
+            _files.Add(file);
+            return file;
         }
     }
 }

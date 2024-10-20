@@ -27,7 +27,8 @@ namespace Authentication
 
         public string Name
         {
-            get { return Name; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         public DateTime Created
@@ -94,22 +95,23 @@ namespace Authentication
                 _name = Encryption.Decrypt(Hashing.StringToHash(encryptedName), Hashing.Hash(_filePath));
 
                 string encryptedCreated = reader.ReadLine();
-                string decryptedCreated = Encryption.Decrypt(Hashing.StringToHash(encryptedName), Hashing.Hash(_filePath));
+                string decryptedCreated = Encryption.Decrypt(Hashing.StringToHash(encryptedCreated), Hashing.Hash(_filePath));
                 _created = DateTime.Parse(decryptedCreated);
                 
                 string encryptedModified = reader.ReadLine();
                 string decryptedModified = Encryption.Decrypt(Hashing.StringToHash(encryptedModified), Hashing.Hash(_filePath));
-                _modified = DateTime.Parse(decryptedCreated);
+                _modified = DateTime.Parse(decryptedModified);
             }
         }
 
-        private void SaveContents(string contents)
+        public void SaveContents(string contents)
         {
             try
             {
                 using (var file = new FileStream(_filePath, FileMode.Open))
                 {
                     file.SetLength(0); // clear file
+                    file.Close();
                 }
             }
             catch // create a new file
@@ -119,10 +121,15 @@ namespace Authentication
 
             using (var file = new StreamWriter(_filePath))
             {
-                file.WriteLine(Encryption.Encrypt(_name, Hashing.Hash(_name)));
-                file.WriteLine(Encryption.Encrypt(_created.ToString(), Hashing.Hash(_name)));
-                file.WriteLine(Encryption.Encrypt(_modified.ToString(), Hashing.Hash(_name)));
-                file.Write(Hashing.HashToString(Encryption.Encrypt(contents, Hashing.Hash(_filePath))));
+                file.WriteLine(Hashing.HashToString(Encryption.Encrypt(_name, Hashing.Hash(_filePath))));
+                file.WriteLine(Hashing.HashToString(Encryption.Encrypt(_created.ToString(), Hashing.Hash(_filePath))));
+                file.WriteLine(Hashing.HashToString(Encryption.Encrypt(DateTime.Now.ToString(), Hashing.Hash(_filePath))));
+
+                if (string.Compare(contents, string.Empty) != 0)
+                {
+                    file.Write(Hashing.HashToString(Encryption.Encrypt(contents, Hashing.Hash(_filePath))));
+                }
+                file.Close();
             }
         }
 
