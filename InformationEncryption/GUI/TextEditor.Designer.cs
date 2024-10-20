@@ -33,17 +33,17 @@
             File_ToolStripItem = new ToolStripMenuItem();
             Save_ToolStripItem = new ToolStripMenuItem();
             Open_ToolStripItem = new ToolStripMenuItem();
+            newToolStripMenuItem = new ToolStripMenuItem();
             name_label = new Label();
             name_textbox = new TextBox();
             created_label = new Label();
             modified_label = new Label();
-            newToolStripMenuItem = new ToolStripMenuItem();
             menuToolStrip.SuspendLayout();
             SuspendLayout();
             // 
             // textBox
             // 
-            textBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            textBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             textBox.Location = new Point(0, 76);
             textBox.Margin = new Padding(4, 5, 4, 5);
             textBox.Name = "textBox";
@@ -82,6 +82,13 @@
             Open_ToolStripItem.Size = new Size(270, 34);
             Open_ToolStripItem.Text = "Open";
             // 
+            // newToolStripMenuItem
+            // 
+            newToolStripMenuItem.Name = "newToolStripMenuItem";
+            newToolStripMenuItem.Size = new Size(270, 34);
+            newToolStripMenuItem.Text = "New";
+            newToolStripMenuItem.Click += newToolStripMenuItem_Click;
+            // 
             // name_label
             // 
             name_label.AutoSize = true;
@@ -116,13 +123,6 @@
             modified_label.Size = new Size(223, 25);
             modified_label.TabIndex = 5;
             modified_label.Text = "Last Modified: 10/20/2024";
-            // 
-            // newToolStripMenuItem
-            // 
-            newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(270, 34);
-            newToolStripMenuItem.Text = "New";
-            newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // TextEditor
             // 
