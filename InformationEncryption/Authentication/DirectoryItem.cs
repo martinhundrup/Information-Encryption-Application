@@ -10,6 +10,7 @@ namespace Authentication
     {
         #region Data Members
 
+        private string _directoryPath;
         private List<FileItem> _files; // all files in the directory
 
         #endregion
@@ -32,8 +33,52 @@ namespace Authentication
         public DirectoryItem()
         {
             _files = new List<FileItem>();
+            _directoryPath = string.Empty;
+        }
+
+        // opens name under current environment path
+        // name should be hashed username
+        public DirectoryItem(string name)
+        {
+            _files = new List<FileItem>();
+            _directoryPath = Environment.CurrentDirectory + $"\\{name}\\";
+
+            LoadAllFiles();
         }
 
         #endregion
+
+        // attemps to load all files from the current directory
+        private void LoadAllFiles()
+        {
+            string[] filePaths = null;
+
+            try
+            {
+                filePaths = Directory.GetFiles(_directoryPath);
+            }
+            catch // directory doesn't exist
+            {
+                // just move on
+            }
+
+            if (filePaths == null)
+            {
+                // no files, create one
+
+                // internal name of file will be hashed DateTime.Now to avoid duplicate files
+                string hashedName = Hashing.HashToString(Hashing.Hash(DateTime.Now.ToString()));
+                string filePath = $"{_directoryPath}\\{hashedName}.txt";
+
+                _files.Add(new FileItem(hashedName));
+            }
+            else // load each file
+            {
+                foreach (var file in filePaths) 
+                {
+                    _files.Add(new FileItem(file));
+                }
+            }
+        }
     }
 }

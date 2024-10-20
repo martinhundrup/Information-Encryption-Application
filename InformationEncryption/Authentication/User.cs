@@ -58,7 +58,7 @@ namespace Authentication
         {
             _username = username;
             _password = password;
-            _directory = new DirectoryItem(); // will be thrown away
+            _directory = new DirectoryItem(Hashing.HashToString(Hashing.Hash(_username))); // will be thrown away
         }
 
         #endregion
