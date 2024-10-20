@@ -4,16 +4,17 @@ namespace GUI
 {
     public partial class _2FA : Form
     {
-        private string? email = null;
-        private string? pass = null;
+        //private string? email = null;
+        //private string? pass = null;
+        User _user;
 
-        public _2FA(string _email, string _pass)
+        //public _2FA(string _email, string _pass)
+        public _2FA(User user) // replace user/pass with user
         {
             InitializeComponent();
-            email = _email;
-            pass = _pass;
+            _user = user;
 
-            Pin_label.Text = $"Enter the 6-digit pin sent to {email}";
+            Pin_label.Text = $"Enter the 6-digit pin sent to {user.Username}";
         }
 
         private void Back_button_Click(object sender, EventArgs e)
@@ -33,7 +34,7 @@ namespace GUI
             {
                 // verified
                 this.Hide();
-                TextEditor editor = new TextEditor(email);
+                TextEditor editor = new TextEditor(_user);
                 editor.ShowDialog();
                 this.Close();
             }

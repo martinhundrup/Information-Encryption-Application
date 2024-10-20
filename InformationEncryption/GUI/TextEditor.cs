@@ -6,10 +6,11 @@ namespace GUI
     {
         private string user; // the username of the logged in user
         private static string fileName = string.Empty;
+        private User _user;
 
-        public TextEditor(string _user)
+        public TextEditor(User user)
         {
-            user = _user;
+            _user = user;
             fileName = Environment.CurrentDirectory + $"\\{user}.txt";
             InitializeComponent();
             LoadText();

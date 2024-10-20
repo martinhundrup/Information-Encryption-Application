@@ -72,8 +72,9 @@ namespace GUI
 
         private void LoadAuthenticationPage(string user, string pass)
         {
+            User _user = new User(this.Username_textbox.Text, this.Password_textbox.Text);
             this.Hide();
-            _2FA _2FA = new _2FA(this.Username_textbox.Text, this.Password_textbox.Text);
+            _2FA _2FA = new _2FA(_user);
             _2FA.ShowDialog();
             this.Close();
         }
