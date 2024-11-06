@@ -5,9 +5,15 @@
     public static class DataManager
     {
         private static Dictionary<string, string> credentials = new Dictionary<string, string>();
-        private static string loginFileName = Environment.CurrentDirectory + "\\login.txt";
+        private static string rootFolderDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "InformationEncrypt");
+        private static string loginFileName = Path.Combine(rootFolderDir, "login.txt");
 
         private static bool hasInit = false;
+
+        public static string RootFolder
+        {
+            get { return rootFolderDir; }
+        }
 
         // used to for 2FA
         public static string pin = string.Empty;
@@ -21,6 +27,8 @@
         {
             if (hasInit) return;
             hasInit = true;
+
+            if (!Directory.Exists(rootFolderDir)) { Directory.CreateDirectory(rootFolderDir); }
 
             if (!File.Exists(loginFileName)) { File.Create(loginFileName).Close(); }
 

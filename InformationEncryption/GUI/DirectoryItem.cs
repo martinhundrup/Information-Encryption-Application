@@ -41,7 +41,7 @@ namespace Authentication
         public DirectoryItem(string name)
         {
             _files = new List<FileItem>();
-            _directoryPath = Environment.CurrentDirectory + $"\\{name}\\";
+            _directoryPath = DataManager.RootFolder + $"\\{name}\\";
 
             LoadAllFiles();
         }
