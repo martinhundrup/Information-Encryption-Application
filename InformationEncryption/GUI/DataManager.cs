@@ -21,6 +21,10 @@
         {
             if (hasInit) return;
             hasInit = true;
+
+            if (!File.Exists(loginFileName)) { File.Create(loginFileName).Close(); }
+
+
             using (var reader = new StreamReader(loginFileName))
             {
                 while (!reader.EndOfStream)
@@ -32,6 +36,7 @@
                     var pass = line.Split(":")[1];
                     credentials.Add(user, pass);
                 }
+                reader.Close();
             }
         }
 
